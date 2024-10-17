@@ -9,8 +9,6 @@
   min-height: 500px;
 }
 
-
-
 .container-video {
   position: relative;
   display: flex;
@@ -21,14 +19,10 @@
   height: 100%;
 }
 
-
-
-
-
 .container-video video {
   display: block;
   width: inherit;
-  height: inherit; 
+  height: inherit;
 }
 
 .controls-video {
@@ -43,7 +37,12 @@
   right: 0;
   z-index: 10;
   background: rgb(0, 0, 0);
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 1) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 1) 90%,
+    rgba(0, 0, 0, 1) 100%
+  );
   color: white;
   transition: all 0.5s ease;
   align-items: flex-end;
@@ -107,10 +106,7 @@ button:has(svg):hover {
   left: 0;
   display: none;
   width: 100%;
-  /* top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0; */
+
   background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -119,7 +115,7 @@ button:has(svg):hover {
   z-index: 20;
 }
 
-.video-loading.show ,
+.video-loading.show,
 .video-error.show {
   display: flex;
   justify-content: center;
@@ -215,7 +211,6 @@ button:has(svg):hover {
   position: absolute;
   right: 5px;
   bottom: 5px;
-  /* padding: 5px 10px; */
 }
 
 @keyframes rotate {

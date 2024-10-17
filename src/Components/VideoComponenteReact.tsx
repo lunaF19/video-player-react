@@ -1,11 +1,15 @@
 import { useRef, useState, useEffect, useMemo } from "react";
 
-import { AiOutlinePlayCircle, AiOutlinePauseCircle, AiFillFastForward, AiFillBackward } from "react-icons/ai";
+import {
+  AiOutlinePlayCircle,
+  AiOutlinePauseCircle,
+  AiFillFastForward,
+  AiFillBackward,
+} from "react-icons/ai";
 
 import { AiOutlineLoading } from "react-icons/ai";
 
 import {
-  // BsVolumeOffFill,
   BsVolumeMuteFill,
   BsVolumeDownFill,
   BsVolumeUpFill,
@@ -31,9 +35,6 @@ interface IPropsVideoComponenteReact {
   params: IControlsVideoParams;
 }
 
-// export const StatusMessage: React.FunctionComponent<StatusMessageProps> = ({
-
-// const VideoComponenteReact: React.FunctionComponent<IPropsVideoComponenteReact> = (props) => {
 function VideoComponenteReact(props: IPropsVideoComponenteReact) {
   const { videoUrl, params } = props;
   const refVideo = useRef<HTMLVideoElement>(null);
@@ -51,7 +52,9 @@ function VideoComponenteReact(props: IPropsVideoComponenteReact) {
 
   const [showControls, setShowControls] = useState(false);
   const [volumePercentage, setVolumePercentage] = useState(initState.volume);
-  const [lastVolumePercentage, setLastVolumePercentage] = useState(initState.volume);
+  const [lastVolumePercentage, setLastVolumePercentage] = useState(
+    initState.volume
+  );
   const [playbackRateVideo, setPlayackRateVideo] = useState(1);
 
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -93,7 +96,9 @@ function VideoComponenteReact(props: IPropsVideoComponenteReact) {
    * Cuando se le da click al buton de volumen
    */
   function onClickVolumeBtn() {
-    const equalsZero = [volumePercentage, lastVolumePercentage].every((item) => item === 0);
+    const equalsZero = [volumePercentage, lastVolumePercentage].every(
+      (item) => item === 0
+    );
     if (equalsZero) {
       setLastVolumePercentage(0);
       setVolumePercentage(100);
@@ -143,9 +148,9 @@ function VideoComponenteReact(props: IPropsVideoComponenteReact) {
           newValue = 1;
           break;
       }
-      // alert(JSON.stringify({newValue,playbackRate}))
+
       refVideo.current.playbackRate = newValue;
-      // alert(JSON.stringify({newValue, playbackRate:refVideo.current.playbackRate}))
+
       setPlayackRateVideo(refVideo.current.playbackRate);
     }
   }
@@ -154,14 +159,16 @@ function VideoComponenteReact(props: IPropsVideoComponenteReact) {
    * Para retrocede el tiempo del video
    */
   function onBackTimeVideo() {
-    if (refVideo.current) refVideo.current.currentTime = refVideo.current.currentTime - 10;
+    if (refVideo.current)
+      refVideo.current.currentTime = refVideo.current.currentTime - 10;
   }
 
   /**
    * Para adelantar el tiempo del video
    */
   function onForwarTimeVideo() {
-    if (refVideo.current) refVideo.current.currentTime = refVideo.current.currentTime + 10;
+    if (refVideo.current)
+      refVideo.current.currentTime = refVideo.current.currentTime + 10;
   }
 
   function onChangePBVideo(e: React.ChangeEvent<HTMLInputElement>) {
@@ -225,8 +232,9 @@ function VideoComponenteReact(props: IPropsVideoComponenteReact) {
    * Cuando una tecla es precionada desde el container del video
    * @param {React.KeyboardEvent<HTMLDivElement> | any} e
    */
-  function onKeyDownContainerVideo(e: React.KeyboardEvent<HTMLDivElement> | any) {
-    // console.log({ key: e.key, isFullScreen });
+  function onKeyDownContainerVideo(
+    e: React.KeyboardEvent<HTMLDivElement> | any
+  ) {
     console.log({ key: e.key.toLocaleLowerCase() });
     switch (e.key.toLocaleLowerCase()) {
       case " ":
@@ -267,14 +275,10 @@ function VideoComponenteReact(props: IPropsVideoComponenteReact) {
   }
 
   function onErrorVideo(e: any) {
-    // console.error(e)
-    // console.error(e.error)
-    setErrorVideo("Error")
-    setShowControls(false)
+    setErrorVideo("Error");
+    setShowControls(false);
   }
-  function onProgress() {
-    // console.log("onProgress");
-  }
+  function onProgress() {}
 
   function onCanPlayThrough() {
     setIsLoadingVideo(false);
@@ -299,7 +303,9 @@ function VideoComponenteReact(props: IPropsVideoComponenteReact) {
         const prevMinute = getMinutes(prevTime);
         const prevHour = getHour(prevTime);
 
-        const strTime = `${formatTime(prevHour)}:${formatTime(prevMinute)}:${formatTime(prevSecond)} `;
+        const strTime = `${formatTime(prevHour)}:${formatTime(
+          prevMinute
+        )}:${formatTime(prevSecond)} `;
         let continuar = confirm(
           `Anteriormente llevabas un ${percentSeen}% visto del video, deseas continuar viendolo en ${strTime}  `
         );
@@ -333,16 +339,27 @@ function VideoComponenteReact(props: IPropsVideoComponenteReact) {
       const leftMinute = getMinutes(leftDuration);
       const leftSecond = getSeconds(leftDuration);
 
-      const strTotalTime = formatTimeStr(totalHours, totlaMinutes, totalSeconds);
+      const strTotalTime = formatTimeStr(
+        totalHours,
+        totlaMinutes,
+        totalSeconds
+      );
 
       const strLeftTime = formatTimeStr(leftHour, leftMinute, leftSecond);
 
-      const strCurrentTime = formatTimeStr(currentHour, currentMinute, currentSecond);
+      const strCurrentTime = formatTimeStr(
+        currentHour,
+        currentMinute,
+        currentSecond
+      );
 
       if (refTimeVideo && refTimeVideo.current) {
         refTimeVideo.current.innerText = `${strCurrentTime} / ${strLeftTime}  `;
       }
-      const percentageSeeOfVideo = getPercentageSeen(currentDuration, totalDuration);
+      const percentageSeeOfVideo = getPercentageSeen(
+        currentDuration,
+        totalDuration
+      );
 
       if (refPercentageSeen && refPercentageSeen.current) {
         refPercentageSeen.current.innerHTML = `See a ${percentageSeeOfVideo}%`;
@@ -383,9 +400,10 @@ function VideoComponenteReact(props: IPropsVideoComponenteReact) {
 
   useEffect(() => {
     const prevIsMouseOverVideo = isMouseOverVideo;
-    if ( !errorVideo ) setShowControls(true);
+    if (!errorVideo) setShowControls(true);
     const idTimeOut = setTimeout(() => {
-      if (prevIsMouseOverVideo === isMouseOverVideo && isPlayed) setShowControls(false);
+      if (prevIsMouseOverVideo === isMouseOverVideo && isPlayed)
+        setShowControls(false);
     }, 2000);
 
     return () => {
@@ -402,19 +420,12 @@ function VideoComponenteReact(props: IPropsVideoComponenteReact) {
 
   return (
     <>
-      {/* <BsArrowsFullscreen/> */}
       <div
         className="container-video"
-        // onKeyDown={onKeyDownContainerVideo}
         onMouseMove={onMouseOverContainerVideo}
         ref={refContainerVideo}
       >
-        {/* {JSON.stringify({isPlayed})} */}
         <div className={`video-loading ${isLoadingVideo ? "show" : ""}`}>
-          {/* <span>
-          Cargando....
-          </span>
-           */}
           <div className="container-icons">
             <AiOutlineLoading size={btnIconSize * 2} color="black" />
             <AiOutlineLoading size={btnIconSize * 2} color="white" />
@@ -422,23 +433,15 @@ function VideoComponenteReact(props: IPropsVideoComponenteReact) {
           </div>
         </div>
 
-        {errorVideo &&(
-           <div className="video-error show">
-              {JSON.stringify({ errorVideo })}
-           </div>
+        {errorVideo && (
+          <div className="video-error show">
+            {JSON.stringify({ errorVideo })}
+          </div>
         )}
 
         <video
           ref={refVideo}
-          onError={ onErrorVideo}
-          // onPlay={(e) => {
-          //   console.log("onPlay")
-          //   setIsPlayed(true)
-          // }}
-          // onPause={(e) => {
-          //   console.log("onPause")
-          //   setIsPlayed(false)
-          // }}
+          onError={onErrorVideo}
           onClick={onPlayPauseVideo}
           onDoubleClick={onFullScreen}
           onLoadedData={onLoadedData}
@@ -446,10 +449,6 @@ function VideoComponenteReact(props: IPropsVideoComponenteReact) {
           onProgress={onProgress}
           onCanPlayThrough={onCanPlayThrough}
           onLoad={onLoadVideo}
-          // onKeyDown={onKeyDownContainerVideo}
-          // onExitFullScreen
-
-          // poster={"https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png"}
           src={videoUrl}
         ></video>
 
@@ -467,7 +466,11 @@ function VideoComponenteReact(props: IPropsVideoComponenteReact) {
             {/* Button Play/Pausa Video */}
             <div className="play-pause-video">
               <button onClick={onPlayPauseVideo}>
-                {isPlayed ? <AiOutlinePauseCircle size={btnIconSize} /> : <AiOutlinePlayCircle size={btnIconSize} />}
+                {isPlayed ? (
+                  <AiOutlinePauseCircle size={btnIconSize} />
+                ) : (
+                  <AiOutlinePlayCircle size={btnIconSize} />
+                )}
               </button>
             </div>
 
@@ -487,18 +490,31 @@ function VideoComponenteReact(props: IPropsVideoComponenteReact) {
           </div>
 
           {/* Volume Controls */}
-          <div className="volume-video" onWheel={(e) => manageVolumeRange(e.deltaY > 0 ? "-" : "+", 5)}>
+          <div
+            className="volume-video"
+            onWheel={(e) => manageVolumeRange(e.deltaY > 0 ? "-" : "+", 5)}
+          >
             <button onClick={onClickVolumeBtn}>{IconVolumenMemo}</button>
 
             <span>{volumePercentage}%</span>
-            <input type="range" min={0} max={100} value={volumePercentage} onChange={onChangeRangeVolume} />
+            <input
+              type="range"
+              min={0}
+              max={100}
+              value={volumePercentage}
+              onChange={onChangeRangeVolume}
+            />
           </div>
 
           <div className="video-percentage-see">
             <span id="percentageSee" ref={refPercentageSeen}></span>
             <button onClick={onFullScreen}>
               {/* {JSON.stringify({ isFullScreen })} */}
-              {isFullScreen ? <BsFullscreenExit size={btnIconSize} /> : <BsFullscreen size={btnIconSize} />}
+              {isFullScreen ? (
+                <BsFullscreenExit size={btnIconSize} />
+              ) : (
+                <BsFullscreen size={btnIconSize} />
+              )}
             </button>
           </div>
         </div>
@@ -516,7 +532,8 @@ function getSecondsOfPercentage(percentage: number, totalSeconds: number) {
   return (totalSeconds / 100) * percentage;
 }
 
-const formatTimeStr = (h: number, m: number, s: number): String => `${formatTime(h)}:${formatTime(m)}:${formatTime(s)}`;
+const formatTimeStr = (h: number, m: number, s: number): String =>
+  `${formatTime(h)}:${formatTime(m)}:${formatTime(s)}`;
 
 function formatTime(time: number) {
   return `${time}`.length === 2 ? `${time}` : `0${time}`;
